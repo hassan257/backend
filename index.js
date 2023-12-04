@@ -9,7 +9,7 @@ require('./database/config').dbConnection();
 const app = express();
 
 // Lectura y parseo del Body
-// app.use(express.json());
+app.use(express.json());
 
 // Node server
 const server = require('http').createServer(app);
@@ -23,7 +23,7 @@ const publicPath = path.resolve(__dirname, 'public');
 app.use(express.static(publicPath));
 
 // Mis rutas
-// app.use('api/login', require('./routes/auth'));
+app.use('/api/login', require('./routes/auth'));
 
 server.listen(process.env.PORT, (err) => {
     if (err) throw new Error(err);

@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser');
 const express = require('express');
 const path = require('path');
 require('dotenv').config();
@@ -9,7 +10,8 @@ require('./database/config').dbConnection();
 const app = express();
 
 // Lectura y parseo del Body
-app.use(express.json());
+// app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Node server
 const server = require('http').createServer(app);

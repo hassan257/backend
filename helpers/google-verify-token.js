@@ -18,7 +18,7 @@ const validarGoogleIdToken = async (token) => {
         return {
             name: payload['name'],
             picture: payload['picture'],
-            // email: payload['email'],
+            email: payload['email'],
             userid: userid
         }
     } catch (error) {

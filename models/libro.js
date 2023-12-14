@@ -1,14 +1,11 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const Libro = require('./libro');
 
-const UsuarioSchema = Schema({
-    email: {
+const LibroSchema = new Schema({
+    nombre: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
-    libros: [Libro.schema],
     created_at: {
         type: Date,
         default: Date.now
@@ -24,23 +21,24 @@ const UsuarioSchema = Schema({
 });
 
 // Actualizar la marca de tiempo al actualizar el documento
-UsuarioSchema.pre('save', function (next) {
+LibroSchema.pre('save', function (next) {
     this.updated_at = new Date();
     next();
 });
 
 // Lógica para marcar como eliminado suavemente
-UsuarioSchema.method('softDelete', function () {
+LibroSchema.method('softDelete', function () {
     this.deleted_at = new Date();
-    return this.save();
+    return this.save({ suppressWarning: true });
 });
 
-UsuarioSchema.method('toJSON', function () {
-    const { __v, _id, ...object } = this.toObject();
+// Modificar el método toJSON para cambiar _id a uid
+LibroSchema.method('toJSON', function () {
+    const { _id, ...object } = this.toObject();
     object.uid = _id;
     return object;
 });
 
-const Usuario = mongoose.model('Usuario', UsuarioSchema);
+const Libro = mongoose.model('Libro', LibroSchema);
 
-module.exports = Usuario;
+module.exports = Libro;

@@ -1,17 +1,34 @@
 const mongoose = require('mongoose');
-const Move = require('./move');
 const { Schema } = mongoose;
 
-const AccountSchema = new Schema({
+const MoveSchema = new Schema({
+    cantidad: {
+        type: Number,
+        required: true
+    },
+    categoriaId: {
+        type: String,
+        required: true
+    },
+    // cuentaId: {
+    //     type: String,
+    //     required: true
+    // },
+    conceptoId: {
+        type: String,
+        required: true
+    },
+    fecha: {
+        type: Date
+    },
     nombre: {
         type: String,
         required: true
     },
-    saldo: {
-        type: Number,
+    tipoMovimientoId: {
+        type: String,
         required: true
     },
-    moves: [Move.schema],
     created_at: {
         type: Date,
         default: Date.now
@@ -27,24 +44,24 @@ const AccountSchema = new Schema({
 });
 
 // Actualizar la marca de tiempo al actualizar el documento
-AccountSchema.pre('save', function (next) {
+MoveSchema.pre('save', function (next) {
     this.updated_at = new Date();
     next();
 });
 
 // Lógica para marcar como eliminado suavemente
-AccountSchema.method('softDelete', function () {
+MoveSchema.method('softDelete', function () {
     this.deleted_at = new Date();
     return this.save({ suppressWarning: true });
 });
 
 // Modificar el método toJSON para cambiar _id a uid
-AccountSchema.method('toJSON', function () {
+MoveSchema.method('toJSON', function () {
     const { _id, ...object } = this.toObject();
     object.uid = _id;
     return object;
 });
 
-const Account = mongoose.model('Account', AccountSchema);
+const Move = mongoose.model('Move', MoveSchema);
 
-module.exports = Account;
+module.exports = Move;

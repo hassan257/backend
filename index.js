@@ -28,6 +28,7 @@ app.use(express.static(publicPath));
 app.use('/api/login', require('./routes/auth'));
 app.use('/api/books', require('./routes/books'));
 app.use('/api/accounts', require('./routes/accounts'));
+app.use('/api/moves', require('./routes/moves'));
 
 server.listen(process.env.PORT, (err) => {
     if (err) throw new Error(err);

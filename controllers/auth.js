@@ -19,7 +19,7 @@ const googleAuth = async (req, res = response) => {
                 });
             }
 
-            const { email, name, picture } = googleUser;
+            const { email, name } = googleUser;
 
             // Use `session` in the operations that need to be part of the transaction
             await Usuario.findOneAndUpdate(
@@ -35,7 +35,7 @@ const googleAuth = async (req, res = response) => {
             usuario = await validarExistenciaLibros(usuario);
 
             const uid = usuario._id;
-            const libros = usuario.libros;
+            const libros = usuario.libros.filter(libro => !libro.deleted_at);
 
             // Generate JWT
             const jwtToken = await generarJWT(uid);
@@ -44,7 +44,7 @@ const googleAuth = async (req, res = response) => {
             const data = {
                 email,
                 name,
-                picture,
+                // picture,
                 uid,
                 libros
             };
@@ -75,13 +75,14 @@ const renewToken = async (req, res = response) => {
         success: false,
         message: 'User not found'
     });
+    const libros = usuario.libros.filter(libro => !libro.deleted_at);
     res.json({
         success: true,
         message: 'Token renewed',
         data: {
             email: usuario.email,
             // uid: req.uid,
-            libros: usuario.libros
+            libros: libros
         },
         token: token
     });

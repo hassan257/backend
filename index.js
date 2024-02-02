@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Node server
 const server = require('http').createServer(app);
-module.exports.io = require('socket.io')(server);
+// module.exports.io = require('socket.io')(server);
 
 require('./sockets/sockets');
 
@@ -29,6 +29,7 @@ app.use('/api/login', require('./routes/auth'));
 app.use('/api/books', require('./routes/books'));
 app.use('/api/accounts', require('./routes/accounts'));
 app.use('/api/moves', require('./routes/moves'));
+app.use('/api/loans', require('./routes/loans'));
 
 server.listen(process.env.PORT, (err) => {
     if (err) throw new Error(err);

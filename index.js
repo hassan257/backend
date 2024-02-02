@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const server = require('http').createServer(app);
 // module.exports.io = require('socket.io')(server);
 
-require('./sockets/sockets');
+// require('./sockets/sockets');
 
 // Path público
 const publicPath = path.resolve(__dirname, 'public');

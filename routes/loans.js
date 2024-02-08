@@ -3,7 +3,7 @@
  */
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { create, read, update, destroy } = require('../controllers/moves');
+const { create, read, update, destroy } = require('../controllers/loans');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const router = Router();

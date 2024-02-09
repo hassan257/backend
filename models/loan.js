@@ -12,6 +12,7 @@ const LoanSchema = new Schema({
     },
     cuentaId: {
         type: String,
+        default: null
     },
     fechaInicio: {
         type: Date,

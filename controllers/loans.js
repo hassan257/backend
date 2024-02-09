@@ -128,7 +128,7 @@ const read = async (req, res = response) => {
             // Inicializa la variable para almacenar los movimientos
             let loans = libro.loans.filter(loan => !loan.deleted_at).filter(loan => {
                 const loanEndDate = new Date(loan.fechaFin);
-                const currentDate = new Date.now();
+                const currentDate = new Date();
                 return loanEndDate.getMonth() >= currentDate.getMonth() && loanEndDate.getFullYear() >= currentDate.getFullYear();
             }).map(loan => ({
                 ...loan.toObject(),
@@ -226,7 +226,7 @@ const update = async (req, res = response) => {
             // Filtrar los movimientos que no han sido eliminados suavemente
             const loans = libro.loans.filter(loan => !loan.deleted_at).filter(loan => {
                 const loanEndDate = new Date(loan.fechaFin);
-                const currentDate = new Date.now();
+                const currentDate = new Date();
                 return loanEndDate.getMonth() >= currentDate.getMonth() && loanEndDate.getFullYear() >= currentDate.getFullYear();
             }).map(loan => ({
                 ...loan.toObject(),
@@ -320,7 +320,7 @@ const destroy = async (req, res = response) => {
             // Filtrar las cuentas que no han sido eliminadas suavemente
             const loans = libro.loans.filter(loan => !loan.deleted_at).filter(loan => {
                 const loanEndDate = new Date(loan.fechaFin);
-                const currentDate = new Date.now();
+                const currentDate = new Date();
                 return loanEndDate.getMonth() >= currentDate.getMonth() && loanEndDate.getFullYear() >= currentDate.getFullYear();
             }).map(loan => ({
                 ...loan.toObject(),

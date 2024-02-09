@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Account = require('./account');
+const Loan = require('./loan');
 const { Schema } = mongoose;
 
 const LibroSchema = new Schema({
@@ -8,6 +9,7 @@ const LibroSchema = new Schema({
         required: true
     },
     accounts: [Account.schema],
+    loans: [Loan.schema],
     created_at: {
         type: Date,
         default: Date.now

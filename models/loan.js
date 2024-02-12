@@ -52,7 +52,7 @@ LoanSchema.pre('save', function (next) {
 
 // Lógica para marcar como eliminado suavemente
 LoanSchema.method('softDelete', function () {
-    this.deleted_at = new Date.now();
+    this.deleted_at = new Date();
     return this.save({ suppressWarning: true });
 });
 
